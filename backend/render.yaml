@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: forklifts-backend
+    runtime: python
+    region: frankfurt
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false          # Вставить вручную из Supabase
+      - key: ALLOWED_ORIGINS
+        sync: false          # Вставить URL фронтенда на Vercel после деплоя

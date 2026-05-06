@@ -1,0 +1,445 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --red: #C41230;
+  --red-hover: #a30f28;
+  --sidebar-bg: #f0f0f0;
+  --sidebar-width: 180px;
+  --header-height: 50px;
+  --border: #d9d9d9;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 13px;
+  background: #fff;
+  color: #333;
+}
+
+/* ── Layout ─────────────────────────────────────────── */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 24px;
+  z-index: 100;
+}
+
+.app-header-profile {
+  background: #fff !important;
+  color: #333 !important;
+  border: none !important;
+  font-size: 13px !important;
+  height: 32px !important;
+  padding: 0 18px !important;
+  border-radius: 4px !important;
+  cursor: pointer;
+  font-weight: 500;
+}
+.app-header-profile:hover {
+  background: #f5f5f5 !important;
+}
+
+.app-sidebar {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  padding-top: 8px;
+  overflow-y: auto;
+  z-index: 90;
+}
+
+.sidebar-item {
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+  line-height: 1.4;
+  border-left: 3px solid transparent;
+  transition: background 0.15s;
+}
+.sidebar-item:hover {
+  background: #e4e4e4;
+}
+.sidebar-item.active {
+  color: var(--red);
+  font-weight: 600;
+  border-left-color: var(--red);
+  background: #fdeaea;
+}
+
+.app-content {
+  margin-top: var(--header-height);
+  margin-left: var(--sidebar-width);
+  padding: 20px 24px;
+  min-height: calc(100vh - var(--header-height));
+  background: #fff;
+}
+
+/* ── Two-panel layout ──────────────────────────────── */
+.main-panels {
+  display: flex;
+  gap: 0;
+  height: calc(100vh - var(--header-height) - 40px);
+  min-height: 500px;
+}
+
+.panel-left {
+  flex: 1 1 0;
+  min-width: 0;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panel-right {
+  width: 420px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-left: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panel-inner {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ── Page title ────────────────────────────────────── */
+.page-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: #222;
+}
+
+/* ── Search toolbar ────────────────────────────────── */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 4px 8px;
+  font-size: 13px;
+  height: 28px;
+  width: 200px;
+  outline: none;
+}
+.search-input:focus {
+  border-color: var(--red);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 14px;
+  border-radius: 3px;
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+  height: 28px;
+  font-weight: 500;
+  transition: background 0.15s, opacity 0.15s;
+  white-space: nowrap;
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-red {
+  background: var(--red);
+  color: #fff;
+}
+.btn-red:hover:not(:disabled) {
+  background: var(--red-hover);
+}
+
+.btn-gray {
+  background: #bfbfbf;
+  color: #fff;
+}
+.btn-gray:hover:not(:disabled) {
+  background: #a8a8a8;
+}
+
+.btn-link {
+  background: none;
+  color: #555;
+  border: none;
+  padding: 0;
+  height: auto;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-link:hover {
+  color: var(--red);
+}
+
+/* ── Tables ────────────────────────────────────────── */
+.table-wrap {
+  flex: 1 1 0;
+  overflow: auto;
+}
+
+table.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+table.data-table th {
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  padding: 6px 8px;
+  font-weight: 600;
+  color: #444;
+  white-space: nowrap;
+  text-align: left;
+}
+
+table.data-table td {
+  border: 1px solid #e0e0e0;
+  padding: 5px 8px;
+  vertical-align: middle;
+}
+
+table.data-table tr.row-selected td {
+  background: #fff0f0;
+}
+
+table.data-table tr:not(.row-editing):hover td {
+  background: #fafafa;
+  cursor: pointer;
+}
+
+table.data-table tr.row-selected:hover td {
+  background: #ffe0e0;
+}
+
+/* ── Inline edit inputs ─────────────────────────────── */
+.cell-input {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-size: 13px;
+  height: 24px;
+  width: 100%;
+  outline: none;
+  box-sizing: border-box;
+}
+.cell-input:focus {
+  border-color: var(--red);
+}
+.cell-input.error {
+  border-color: #ff4d4f;
+}
+
+/* ── Action icon buttons ────────────────────────────── */
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 4px;
+  font-size: 14px;
+  color: #666;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.15s;
+}
+.action-btn:hover {
+  color: var(--red);
+}
+.action-btn.confirm {
+  color: #52c41a;
+}
+.action-btn.confirm:hover {
+  color: #389e0d;
+}
+.action-btn.danger {
+  color: #999;
+}
+.action-btn.danger:hover {
+  color: #ff4d4f;
+}
+
+/* ── Checkmark in Активен column ───────────────────── */
+.check-icon { color: #555; font-size: 14px; }
+
+/* ── Panel subtitle (incidents) ────────────────────── */
+.panel-subtitle {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.panel-subtitle-num {
+  font-weight: 400;
+  color: #555;
+}
+
+.empty-hint {
+  color: #aaa;
+  font-size: 13px;
+  padding: 12px 0;
+}
+
+/* ── Modal ─────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  background: #fff;
+  border-radius: 4px;
+  width: 440px;
+  max-width: 95vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+  overflow: hidden;
+}
+
+.modal-title {
+  background: var(--red);
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.modal-body {
+  padding: 20px 20px 12px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.form-label {
+  font-size: 13px;
+  color: #555;
+  white-space: nowrap;
+  min-width: 70px;
+}
+
+.form-input {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 5px 8px;
+  font-size: 13px;
+  height: 30px;
+  outline: none;
+  width: 100%;
+}
+.form-input:focus {
+  border-color: var(--red);
+}
+
+.form-textarea {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 6px 8px;
+  font-size: 13px;
+  resize: vertical;
+  outline: none;
+  width: 100%;
+  min-height: 80px;
+}
+.form-textarea:focus {
+  border-color: var(--red);
+}
+
+.modal-footer {
+  display: flex;
+  gap: 12px;
+  padding: 12px 20px 16px;
+  justify-content: center;
+}
+
+/* ── Confirm dialog ─────────────────────────────────── */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+}
+
+.confirm-box {
+  background: #fff;
+  border-radius: 4px;
+  padding: 24px 28px;
+  width: 320px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+  text-align: center;
+}
+
+.confirm-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.confirm-text {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* ── Tag "active incident" ─────────────────────────── */
+.tag-active {
+  background: #fff3e0;
+  color: #e65100;
+  border: 1px solid #ffcc80;
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-size: 12px;
+}
